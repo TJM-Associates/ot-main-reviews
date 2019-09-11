@@ -36,7 +36,15 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 - Node 6.13.0
 - etc
 
-## Development
+## RESTful CRUD API 
+CREATE 
+	app.get("api/restaurants/:rid/getReviews")
+READ
+	app.post("api/restaurants/:rid/getReviews")
+UPDATE
+	app.update("api/restaurants/:rid/getReviews")
+DELETE 
+	app.delete("api/restaurants/:rid/getReviews")
 
 ### Installing Dependencies
 
