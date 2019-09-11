@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build:dev": "npx webpack --mode development --watch",
-    "build": "npx webpack --mode production && grunt deploy",
+    "build": "npx webpack --mode production",
     "start:dev": "nodemon ./server/Server.js",
     "start": "node ./server/Server.js",
     "test": "jest --coverage",

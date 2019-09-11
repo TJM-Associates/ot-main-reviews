@@ -12,10 +12,11 @@ class App extends React.Component {
 
   componentDidMount() {
     let urlParam = document.location.pathname.substring(13);
+    console.log(urlParam);
     urlParam = urlParam.substring(0, urlParam.length - 1);
     console.log(urlParam);
     window.urlParam = urlParam;
-    axios.get('http://localhost:3001/api/restaurants/:id/reviews', {
+    axios.get('/api/restaurants/:id/reviews', {
       params: {
         id: urlParam,
       },
@@ -41,4 +42,3 @@ class App extends React.Component {
 }
 window.Review = App;
 export default App;
-
