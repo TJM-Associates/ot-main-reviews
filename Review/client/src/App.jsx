@@ -15,7 +15,7 @@ class App extends React.Component {
     urlParam = urlParam.substring(0, urlParam.length - 1);
     console.log(urlParam);
     window.urlParam = urlParam;
-    axios.get('http://ec2-18-222-142-160.us-east-2.compute.amazonaws.com:3001/api/restaurants/:id/reviews', {
+    axios.get('http://localhost:3001/api/restaurants/:id/reviews', {
       params: {
         id: urlParam,
       },
