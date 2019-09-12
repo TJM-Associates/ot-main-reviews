@@ -39,12 +39,22 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 ## RESTful CRUD API 
 - CREATE 
 	- app.get("api/restaurants/:rid/getReviews")
+  - Input Parameter: {r_id} (review id)
+  - Response: { user_id, restaurant_id, review, overall, foodRating, serviceRating, ambience, overallRating, date_dined }
+
+
 - READ
 	- app.post("api/restaurants/:rid/getReviews")
+  - Input Parameters: { user_id, restaurant_id, review, overall, foodRating, serviceRating, ambience, overallRating, date_dined }
+  - Response: {review_id}
 - UPDATE
-	- app.update("api/restaurants/:rid/getReviews")
+	- app.put("api/restaurants/:rid/getReviews")
+  - Input Parameters; { user_id, restaurant_id, review, overall, foodRating, serviceRating, ambience, overallRating, date_dined }
+  - Response: {review_id}
 - DELETE 
 	- app.delete("api/restaurants/:rid/getReviews")
+  - Input Parameter: {review_id}
+  - Response: True (success if deleted from database)
 
 ### Installing Dependencies
 
