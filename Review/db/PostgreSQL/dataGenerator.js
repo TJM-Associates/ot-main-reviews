@@ -1,12 +1,41 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-console */
 /* eslint-disable no-plusplus */
 const faker = require('faker');
-const db = require('./pgConnection');
+// eslint-disable-next-line prefer-const
+const fs = require('fs');
+const pg = require('pg');
+const { Client, Pool } = require('pg');
+const fastcsv = require('fast-csv');
+
 
 // console.log(db.client);
+
+// restaurant Generator
+const getRestaurantData = () => {
+  const restaurantArray = [];
+  for (let x = 0; x < 100000; x++) {
+    const obj = {
+      r_id: `r${x}`,
+      restaurant_name: faker.company.companyName(),
+    };
+    restaurantArray.push(obj);
+  }
+  return restaurantArray;
+};
+
+const restaurants = getRestaurantData();
+
+const ws = fs.createWriteStream('restaurants.csv');
+fastcsv.write(restaurants, { headers: true })
+  .pipe(ws);
+
+// console.time('concatenation');
+// console.timeEnd('concatenation');
+
+// userGenerator
 const genUserData = () => {
   const userArray = [];
-  // Create 50 users for each restaurant
   for (let y = 0; y < 200; y++) {
     const obj = {
       username: faker.name.findName(),
@@ -20,6 +49,7 @@ const genUserData = () => {
   return userArray;
 };
 
+// review Generator
 const genReviewData = () => {
   const masterReviewArray = [];
   for (let z = 1; z < 101; z++) {
@@ -44,7 +74,71 @@ const genReviewData = () => {
 };
 
 
-// ================ ADD DATA TO ABLE =====================
+// ================ WRITE DATA  =====================
+
+const writeRestaurants = fs.createWriteStream('restaurants.csv');
+writeRestaurants.write('r_id,restaurant_name\n', 'utf8');
+
+function writeTenMillionUsers(writer, encoding, callback) {
+  let i = 10000000;
+  let id = 0;
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      id += 1;
+      const r_id = `r${id}`;
+      const restaurant_name = faker.company.companyName();
+      const data = `${r_id},${restaurant_name}\n`;
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
+  }
+  write();
+}
+
+writeTenMillionUsers(writeRestaurants, 'utf-8', () => {
+  writeRestaurants.end();
+});
+// create connection
+const client = new pg.Client({
+  user: 'michaelkim',
+  host: 'localhost',
+  database: 'review',
+  password: 'password',
+  port: 5432,
+});
+// check Connection
+// client.connect((err) => {
+//   if (err) {
+//     console.log(err.stack);
+//   } else {
+//     console.log('connected to node-gres');
+//   }
+// });
+
+
+const restaurantArray = getRestaurantData();
+// console.log(restaurantArray);
+function insertRestaurantTable() {
+  for (let i = 0; i < restaurantArray.length; i++) {
+    const query = `INSERT INTO restaurants(r_id, restaurant_name) VALUES('${restaurantArray[i].r_id}', '${restaurantArray[i].restaurant_name}')`;
+    console.log(i); 
+    client.query(query, (err, res) => {
+      // console.log(err, res);
+    });
+  }
+};
+
+// console.log(restaurantArray);
+// insertRestaurantTable();
+
 // Array of auto-generated users
 const userArray = genUserData();
 
@@ -63,7 +157,7 @@ const populateUserTable = () => {
       });
   }
 };
-populateUserTable();
+// populateUserTable();
 
 
 const reviewArray = genReviewData();
@@ -86,7 +180,7 @@ const populateReviewsTable = (array) => {
   }
 };
 
-populateReviewsTable(reviewArray);
+// populateReviewsTable(reviewArray);
 
 // console.log(reviewArray)
 // db.client.connection.end();
