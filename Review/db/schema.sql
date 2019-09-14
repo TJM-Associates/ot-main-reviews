@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     comment TEXT NOT NULL,
     r_id VARCHAR(50) NOT NULL,
     u_id int NOT NULL,
-    date_dined date NOT NULL,
+    date_dined varchar(20) NOT NULL,
     FOREIGN KEY (u_id)
         REFERENCES users (user_id) ON DELETE CASCADE
 );
