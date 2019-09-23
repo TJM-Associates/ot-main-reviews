@@ -1,0 +1,13 @@
+config:
+  target: "http://localhost:3001"
+  http:
+  phases:
+    - duration: 60
+      arrivalRate: 500
+      maxVusers: 200
+
+scenarios:
+  - name: "Get restaurant reviews"
+    flow:
+      - get:
+          url: "/restaurants/r{{$randomNumber(0,400000)}}/"

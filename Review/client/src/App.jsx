@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+// eslint-disable-next-line import/extensions
 import ReviewList from './components/ReviewList.jsx';
 
 class App extends React.Component {
@@ -11,20 +12,18 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let urlParam = document.location.pathname.substring(13);
+    const pathname = document.location.pathname.split('/');
+    const urlParam = pathname[2];
+    // eslint-disable-next-line no-console
     console.log(urlParam);
-    urlParam = urlParam.substring(0, urlParam.length - 1);
-    console.log(urlParam);
+    // urlParam = urlParam.substring(0, urlParam.length - 1);
+    // console.log(urlParam);
     window.urlParam = urlParam;
-    axios.get('/api/restaurants/:id/reviews', {
-      params: {
-        id: urlParam,
-      },
-    })
+    axios.get(`http://localhost:3001/api/restaurants/${urlParam}/reviews`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         const listOfReviews = response.data;
-        listOfReviews.sort((a, b) => new Date(b.date_dined) - new Date(a.date_dined));
+        // listOfReviews.sort((a, b) => new Date(b.date_dined) - new Date(a.date_dined));
         this.setState({
           listOfReviews,
         });

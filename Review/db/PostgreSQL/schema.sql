@@ -4,8 +4,7 @@ CREATE DATABASE review;
 
 \c review; 
 
-DROP TABLE IF EXISTS restaurants CASCADE;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS restaurants;
 DROP TABLE IF EXISTS reviews;
 
 CREATE TABLE restaurants (
@@ -14,6 +13,7 @@ CREATE TABLE restaurants (
 );
 
 CREATE TABLE reviews (
+    review_ID SERIAL PRIMARY KEY, 
     user_name varchar(30) NOT NULL,
     city TEXT NOT NULL,
     number_of_reviews int NOT NULL,
@@ -28,4 +28,12 @@ CREATE TABLE reviews (
     date_dined varchar(20) NOT NULL,
     FOREIGN KEY (r_id) REFERENCES restaurants (r_id)
 );
+
+CREATE INDEX restaurant_index on reviews (r_id);
+CREATE INDEX restaurant_index on restaurants (r_id);
+
+COPY restaurants FROM '/Users/michaelkim/ot-main-reviews/Review/db/PostgreSQL/restaurants.csv' DELIMITER ',' CSV HEADER;
+COPY reviews FROM '/Users/michaelkim/ot-main-reviews/Review/db/PostgreSQL/reviews.csv' DELIMITER ',' CSV HEADER;
+
+
 

@@ -36,14 +36,15 @@ console.log(typeof sameDate);
 const writeReviews = fs.createWriteStream('reviews.csv');
 // eslint-disable-next-line max-len
 // writeReviews.write('user_name,location, number_of_reviews,profile_picture,vip_status,overall_rating,food_rating,service_rating,ambience_rating,comment,r_id,date_dined\n', 'utf8');
-writeReviews.write('user_name, location, number_of_reviews, profilePicture, vipStatus,overall_rating,food_rating,service_rating,ambience_rating,comment,r_id,date_dined\n', 'utf8');
+writeReviews.write('review_id, user_name, location, number_of_reviews, profilePicture, vipStatus,overall_rating,food_rating,service_rating,ambience_rating,comment,r_id,date_dined\n', 'utf8');
 function writeReviews250mil(writer, encoding, callback) {
-  let i = 250000000; // two fifty million
+  let i = 10000000; // two fifty million
   let id = 1;
   function write() {
     let ok = true;
     while (i > 0 && ok) {
       i -= 1;
+      const review_id = i + 1;
       const user_name = faker.internet.userName();
       const location = randomCityPicker();
       const number_of_reviews = Math.floor(Math.random() * 200) + 1;
@@ -56,7 +57,7 @@ function writeReviews250mil(writer, encoding, callback) {
       const comment = getQuote();
       const r_id = id;
       const date_dined = sameDate;
-      const data = `${user_name}, ${location},${number_of_reviews}, ${profilePicture},${vipStatus},${overall_rating},${food_rating},${service_rating},${ambience_rating},${comment},${r_id}, ${date_dined}\n`;
+      const data = ` ${review_id},${user_name}, ${location},${number_of_reviews}, ${profilePicture},${vipStatus},${overall_rating},${food_rating},${service_rating},${ambience_rating},${comment},${r_id}, ${date_dined}\n`;
       if (i === 0) {
         writer.write(data, encoding, callback);
       } else {

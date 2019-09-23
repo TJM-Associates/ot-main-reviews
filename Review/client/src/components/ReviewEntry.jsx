@@ -131,22 +131,22 @@ class ReviewEntry extends React.Component {
     const { eachReview } = this.props;
     const {
       // eslint-disable-next-line camelcase
-      overallRating, foodRating, serviceRating, ambienceRating, date_dined, comment, profilePicture,
-      location, numberOfReviews, username, vipStatus,
+      overall_rating, food_rating, service_rating, ambience_rating, date_dined, comment, profile_picture,
+      city, number_of_reviews, user_name, vip_status,
     } = eachReview;
     this.state = {
-      overallRating,
-      foodRating,
-      serviceRating,
-      ambienceRating,
+      overall_rating,
+      food_rating,
+      service_rating,
+      ambience_rating,
       dateDined: date_dined,
       comment,
-      profilePicture,
-      location,
-      numberOfReviews,
-      username,
+      profile_picture,
+      city,
+      number_of_reviews,
+      user_name,
       readMe: false,
-      vipStatus,
+      vip_status,
     };
     this.handleShowMore = this.handleShowMore.bind(this);
   }
@@ -160,8 +160,8 @@ class ReviewEntry extends React.Component {
 
   render() {
     const {
-      profilePicture, username, location, numberOfReviews, overallRating, foodRating, serviceRating,
-      ambienceRating, comment, readMe,
+      profile_picture, user_name, city, number_of_reviews, overall_rating, food_rating, service_rating,
+      ambience_rating, comment, readMe,
     } = this.state;
     let { dateDined } = this.state;
 
@@ -197,11 +197,11 @@ class ReviewEntry extends React.Component {
       <Body className="review-entry-container">
         <UserBody className="user-data">
           {vipStatus === 1 ? <VIP>VIP</VIP> : null}
-          <Image id="profile-img" src={profilePicture} />
-          <UserName>{username}</UserName>
-          <UserData>{location}</UserData>
+          <Image id="profile-img" src={profile_picture} />
+          <UserName>{user_name}</UserName>
+          <UserData>{city}</UserData>
           <NumberOfReviews>
-            {numberOfReviews}
+            {number_of_reviews}
             {' '}
               reviews
           </NumberOfReviews>
@@ -212,7 +212,7 @@ class ReviewEntry extends React.Component {
             <StarRatingComponent
               name="rate2"
               editing={false}
-              value={overallRating}
+              value={overall_rating}
               starColor="#DA3743"
               emptyStarColor="#e8e6e1"
             />
@@ -230,7 +230,7 @@ class ReviewEntry extends React.Component {
             {' '}
             {' '}
             <Rating className="rating-overall">
-              {overallRating}
+              {overall_rating}
             </Rating>
             {' '}
             {'·'}
@@ -239,7 +239,7 @@ class ReviewEntry extends React.Component {
             {' '}
             {' '}
             <Rating className="rating-food">
-              {foodRating}
+              {food_rating}
             </Rating>
             {' '}
             {'·'}
@@ -248,7 +248,7 @@ class ReviewEntry extends React.Component {
             {' '}
             {' '}
             <Rating className="rating-service">
-              {serviceRating}
+              {service_rating}
             </Rating>
             {' '}
             {'·'}
@@ -257,7 +257,7 @@ class ReviewEntry extends React.Component {
             {' '}
             {' '}
             <Rating className="rating-ambience">
-              {ambienceRating}
+              {ambience_rating}
             </Rating>
           </RatingData>
           {' '}
@@ -283,17 +283,17 @@ class ReviewEntry extends React.Component {
 }
 ReviewEntry.propTypes = {
   eachReview: PropTypes.shape({
-    overallRating: PropTypes.number.isRequired,
-    foodRating: PropTypes.number.isRequired,
-    serviceRating: PropTypes.number.isRequired,
-    ambienceRating: PropTypes.number.isRequired,
+    overall_rating: PropTypes.number.isRequired,
+    food_rating: PropTypes.number.isRequired,
+    service_rating: PropTypes.number.isRequired,
+    ambience_rating: PropTypes.number.isRequired,
     date_dined: PropTypes.string.isRequired,
     comment: PropTypes.string.isRequired,
-    profilePicture: PropTypes.string.isRequired,
+    profile_picture: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    numberOfReviews: PropTypes.number.isRequired,
-    username: PropTypes.string.isRequired,
-    vipStatus: PropTypes.number.isRequired,
+    number_of_reviews: PropTypes.number.isRequired,
+    user_name: PropTypes.string.isRequired,
+    vip_status: PropTypes.number.isRequired,
   }).isRequired,
 };
 

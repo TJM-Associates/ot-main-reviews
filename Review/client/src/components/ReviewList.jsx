@@ -58,7 +58,7 @@ class ReviewList extends React.Component {
     }
 
     const { pageIndex } = this.state;
-    console.log(reviewBatchArray);
+    // console.log(reviewBatchArray);
     return (
 
       <div key={`${pageIndex}Reviews`}>
