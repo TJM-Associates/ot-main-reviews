@@ -14,12 +14,13 @@ class App extends React.Component {
   componentDidMount() {
     const pathname = document.location.pathname.split('/');
     const urlParam = pathname[2];
+    const host = '52.8.6.53';
     // eslint-disable-next-line no-console
     console.log(urlParam);
     // urlParam = urlParam.substring(0, urlParam.length - 1);
     // console.log(urlParam);
     window.urlParam = urlParam;
-    axios.get(`http://localhost:3001/api/restaurants/${urlParam}/reviews`)
+    axios.get(`http://${host}:3001/api/restaurants/${urlParam}/reviews`)
       .then((response) => {
         // console.log(response.data);
         const listOfReviews = response.data;
