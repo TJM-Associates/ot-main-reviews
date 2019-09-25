@@ -34,7 +34,7 @@ app.use('/build/client', expressStaticGzip('build/client', {
   },
 }));
 
-
+app.use('/', express.static('loader'));
 app.use('/restaurants/:id', express.static('public'));
 
 // eslint-disable-next-line no-console
