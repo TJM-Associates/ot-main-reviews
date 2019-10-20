@@ -14,7 +14,7 @@ class App extends React.Component {
   componentDidMount() {
     const pathname = document.location.pathname.split('/');
     const urlParam = pathname[2];
-    const host = 'ec2-52-8-6-53.us-west-1.compute.amazonaws.com';
+    // const host = 'ec2-52-8-6-53.us-west-1.compute.amazonaws.com';
     // eslint-disable-next-line no-console
     console.log(urlParam);
     // urlParam = urlParam.substring(0, urlParam.length - 1);
